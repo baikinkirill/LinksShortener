@@ -12,6 +12,7 @@
 		font-family: 'Rubik Mono One', sans-serif;
 		color: #1890ff;
 		font-size: 70px;
+		text-align: center;
 	}
 
 	.contentParent{
@@ -28,5 +29,13 @@
 		max-width: 600px;
 		padding-top: 0px;
 
+	}
+}
+
+@media (max-width: 550px) {
+	.parent{
+		h1{
+			font-size: 15vw;
+		}
 	}
 }
