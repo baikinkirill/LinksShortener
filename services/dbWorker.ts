@@ -10,7 +10,7 @@ export class dbWorker {
 
  public getSession() {
   var dbconfig = {
-   host: '127.0.0.1',
+   host: 'db',
    user: 'root',
    password: '123456',
    database: 'somedb',

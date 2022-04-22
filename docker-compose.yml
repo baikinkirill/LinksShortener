@@ -17,7 +17,7 @@ services:
 
   myapp:
     ports:
-      - 4586:3000
+      - 4586:4586
     depends_on:
       - db
     build:
