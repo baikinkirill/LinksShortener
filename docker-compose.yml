@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7.22
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: somedb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_HOST: '%'
+
+  myapp:
+    ports:
+      - 4586:3000
+    depends_on:
+      - db
+    build:
+      context: .
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

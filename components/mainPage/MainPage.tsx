@@ -81,17 +81,17 @@ export default function MainPage() {
       rel="noreferrer">
       trpp.ru/{state.linkResult}
      </a>
-     {/*<div className={styles.statsLink}>*/}
-     {/* <span>*/}
-     {/*  <b>Статистика: </b>*/}
-     {/* </span>*/}
-     {/* <a*/}
-     {/*  href={`https://trpp.ru/stats/${state.linkResult}`}*/}
-     {/*  target={'_blank'}*/}
-     {/*  rel="noreferrer">*/}
-     {/*  trpp.ru/stats/{state.linkResult}*/}
-     {/* </a>*/}
-     {/*</div>*/}
+     <div className={styles.statsLink}>
+      <span>
+       <b>Statistics: </b>
+      </span>
+      <a
+       href={`https://trpp.ru/stats/${state.linkResult}`}
+       target={'_blank'}
+       rel="noreferrer">
+       trpp.ru/stats/{state.linkResult}
+      </a>
+     </div>
     </div>
    </div>
   </div>
