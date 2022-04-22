@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "prettier": "@baikinkirill/prettier-config",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/charts": "^1.3.6",
     "antd": "^4.19.5",
     "js-hibernate": "^1.0.14",
     "md5": "^2.3.0",
@@ -22,6 +24,7 @@
     "useragent": "^2.3.0"
   },
   "devDependencies": {
+    "@baikinkirill/prettier-config": "^1.0.3",
     "@types/node": "17.0.23",
     "@types/react": "18.0.1",
     "@types/react-dom": "18.0.0",

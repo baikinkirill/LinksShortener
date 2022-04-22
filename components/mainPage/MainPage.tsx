@@ -4,10 +4,12 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { QRCodeCanvas } from 'qrcode.react';
 import { useState } from 'react';
 import shortLink from '../../services/shortLink';
+import { test } from '../../types/global';
 
 export default function MainPage() {
  const initState: any = { link: '' };
-
+ let test: test;
+ const [loaded, setLoaded] = useState(false);
  const [state, editState] = useState(initState);
  const setState = (e: object) => {
   editState((prevState: any) => ({ ...prevState, ...e }));
@@ -15,16 +17,23 @@ export default function MainPage() {
 
  const buttonClick = async () => {
   setState({ loading: true });
-  let link = await shortLink(state.link);
-  setState({
-   loading: false,
-   qr: <QRCodeCanvas value={process.env.NEXT_PUBLIC_HOST + '/' + link} />,
+  shortLink(state.link).then((result) => {
+   setLoaded(true);
+   setState({
+    loading: false,
+    linkResult: result,
+    qr: (
+     <QRCodeCanvas
+      size={200}
+      value={process.env.NEXT_PUBLIC_HOST + '/' + result}
+     />
+    ),
+   });
   });
-  return true;
  };
 
  return (
-  <div className={[styles.parent].join(' ')}>
+  <div className={[styles.parent].join(' ')} loaded={loaded + ''}>
    <div>
     <h1>trpp.ru</h1>
    </div>
@@ -33,7 +42,11 @@ export default function MainPage() {
      <div className={styles.content}>
       <Input
        onChange={(e) => {
-        setState({ link: e.target.value.replace(/(http(s)?\:\/\/)/gim, '') });
+        let newValue = e.target.value.replace(/(http(s)?\:\/\/)/gim, '');
+        setLoaded(false);
+        setState({
+         link: newValue,
+        });
        }}
        prefix="https://"
        size={'large'}
@@ -58,7 +71,29 @@ export default function MainPage() {
      </div>
     </Card>
    </div>
-   {state.qr}
+   <div className={styles.result}>
+    <div className={styles.resultContent}>
+     <h1>done</h1>
+     {state.qr}
+     <a
+      href={`https://trpp.ru/${state.linkResult}`}
+      target={'_blank'}
+      rel="noreferrer">
+      trpp.ru/{state.linkResult}
+     </a>
+     {/*<div className={styles.statsLink}>*/}
+     {/* <span>*/}
+     {/*  <b>Статистика: </b>*/}
+     {/* </span>*/}
+     {/* <a*/}
+     {/*  href={`https://trpp.ru/stats/${state.linkResult}`}*/}
+     {/*  target={'_blank'}*/}
+     {/*  rel="noreferrer">*/}
+     {/*  trpp.ru/stats/{state.linkResult}*/}
+     {/* </a>*/}
+     {/*</div>*/}
+    </div>
+   </div>
   </div>
  );
 }

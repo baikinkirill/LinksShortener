@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
 
-.parent{
+.parent {
+	transition: all 250ms ease;
+
+	& *:nth-child(n) {
+		transition: all 250ms ease;
+	}
+
 	display: grid;
 	justify-content: center;
 	align-items: center;
@@ -8,19 +14,24 @@
 	row-gap: 25px;
 	padding-top: 25vh;
 
-	h1{
+	h1 {
+		transition: all 250ms ease;
+
 		font-family: 'Rubik Mono One', sans-serif;
 		color: #1890ff;
 		font-size: 70px;
 		text-align: center;
 	}
 
-	.contentParent{
+	.contentParent {
 		-webkit-box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
 		-moz-box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
 		box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
+
+
 	}
-	.content{
+
+	.content {
 		@extend .parent;
 		height: fit-content;
 		width: 80vw;
@@ -28,14 +39,66 @@
 		justify-content: stretch;
 		max-width: 600px;
 		padding-top: 0px;
+	}
 
+	.result {
+
+		position: relative;
+		height: 0px;
+		overflow: hidden;
+
+		.resultContent {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			h1 {
+				color: #44d55c;
+				font-size: 70px;
+			}
+			a{
+				margin-top: 15px;
+				font-size: 18px;
+			}
+			.statsLink{
+				margin-top: 40px;
+			}
+		}
 	}
 }
 
 @media (max-width: 550px) {
-	.parent{
-		h1{
+	.parent {
+		h1 {
 			font-size: 15vw;
 		}
+		.result{
+			.resultContent{
+				h1{
+					font-size: 16vw;
+				}
+			}
+		}
+	}
+}
+
+.parent[loaded=true] {
+	transition: all 250ms ease;
+
+	& *:nth-child(n) {
+		transition: all 250ms ease;
+	}
+
+	row-gap: 25px;
+	padding-top: 5vh;
+
+	h1 {
+		font-size: 30px;
+		margin: 0px;
+	}
+
+	.result {
+		height: 450px;
 	}
 }
