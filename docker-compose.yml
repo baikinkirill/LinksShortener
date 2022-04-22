@@ -4,7 +4,7 @@ services:
   db:
     image: mysql:5.7.22
     container_name: db
-    restart: unless-stopped
+    restart: always
     tty: true
     ports:
       - "3306:3306"
@@ -16,6 +16,7 @@ services:
       MYSQL_ROOT_HOST: '%'
 
   myapp:
+    restart: always
     ports:
       - 4586:4586
     depends_on:
@@ -23,8 +24,8 @@ services:
     build:
       context: .
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
+#  adminer:
+#    image: adminer
+#    restart: always
+#    ports:
+#      - 8080:8080
