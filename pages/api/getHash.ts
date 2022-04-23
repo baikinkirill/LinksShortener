@@ -16,7 +16,7 @@ export function findHash(params: any, res: NextApiResponse) {
   .query(tableMap)
   .where(tableMap.hash.Equal(params.slug[1]));
 
- query.then((e: any) => {
+ query.then(async (e: any) => {
   if (e.length > 0) {
    let requestObj: Request = {
     hash: params.slug[1],
@@ -26,7 +26,7 @@ export function findHash(params: any, res: NextApiResponse) {
     os: params.os,
    };
 
-   worker.getRequestsMap().Insert(requestObj);
+   await worker.getRequestsMap().Insert(requestObj);
    res.status(200).json({ result: e[0].link });
   } else {
    res.status(404).json({ error: 'Hash not found' });

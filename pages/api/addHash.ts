@@ -21,11 +21,11 @@ export function addHash(params: any, res: NextApiResponse) {
   hash: md5(params.body).slice(0, 7),
  };
 
- query.then((e: any) => {
+ query.then(async (e: any) => {
   if (e.length > 0) {
    res.status(201).json({ result: md5(params.body).slice(0, 7) });
   } else {
-   tableMap.Insert(linkObj);
+   await tableMap.Insert(linkObj);
    res.status(201).json({ result: md5(params.body).slice(0, 7) });
   }
  });
