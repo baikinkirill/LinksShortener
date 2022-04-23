@@ -9,11 +9,12 @@ export class dbWorker {
  }
 
  public getSession() {
+  console.log(process.env);
   var dbconfig = {
-   host: 'db',
-   user: 'root',
-   password: '123456',
-   database: 'somedb',
+   host: 'host',
+   user: 'user',
+   password: 'password',
+   database: 'database',
   };
   var jsORM = require('js-hibernate');
   var session = jsORM.session(dbconfig);
