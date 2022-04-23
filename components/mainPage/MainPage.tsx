@@ -8,6 +8,7 @@ import { test } from '../../types/global';
 
 export default function MainPage() {
  const initState: any = { link: '' };
+ const HOST_URL = process.env.host_url || window.location.host;
  let test: test;
  const [loaded, setLoaded] = useState(false);
  const [state, editState] = useState(initState);
@@ -23,10 +24,7 @@ export default function MainPage() {
     loading: false,
     linkResult: result,
     qr: (
-     <QRCodeCanvas
-      size={200}
-      value={process.env.NEXT_PUBLIC_HOST + '/' + result}
-     />
+     <QRCodeCanvas size={200} value={'https://' + HOST_URL + '/' + result} />
     ),
    });
   });
@@ -35,7 +33,7 @@ export default function MainPage() {
  return (
   <div className={[styles.parent].join(' ')} loaded={loaded + ''}>
    <div>
-    <h1>trpp.ru</h1>
+    <h1>{HOST_URL}</h1>
    </div>
    <div className={styles.contentParent}>
     <Card>
@@ -76,20 +74,20 @@ export default function MainPage() {
      <h1>done</h1>
      {state.qr}
      <a
-      href={`https://trpp.ru/${state.linkResult}`}
+      href={`https://${HOST_URL}/${state.linkResult}`}
       target={'_blank'}
       rel="noreferrer">
-      trpp.ru/{state.linkResult}
+      {HOST_URL}/{state.linkResult}
      </a>
      <div className={styles.statsLink}>
       <span>
        <b>Statistics: </b>
       </span>
       <a
-       href={`https://trpp.ru/stats/${state.linkResult}`}
+       href={`https://${HOST_URL}/stats/${state.linkResult}`}
        target={'_blank'}
        rel="noreferrer">
-       trpp.ru/stats/{state.linkResult}
+       {HOST_URL}/stats/{state.linkResult}
       </a>
      </div>
     </div>
