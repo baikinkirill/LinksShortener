@@ -18,7 +18,7 @@ export default function MainPage() {
 
  const buttonClick = async () => {
   setState({ loading: true });
-  shortLink(state.link)
+  shortLink(encodeURIComponent(state.link))
    .then((result) => {
     setLoaded(true);
     setState({

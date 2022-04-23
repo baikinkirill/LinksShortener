@@ -30,7 +30,7 @@ export async function getServerSideProps(req: any) {
 
   return {
    redirect: {
-    destination: 'https://' + json.result,
+    destination: 'https://' + decodeURIComponent(json.result),
     permanent: true,
    },
   };

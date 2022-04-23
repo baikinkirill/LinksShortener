@@ -76,7 +76,7 @@ export default function Stats(props) {
  return (
   <div className={styles.parent}>
    <DefaultHeader />
-   <h1>{props.result.link}</h1>
+   <h1>{decodeURIComponent(props.result.link)}</h1>
    <div className={styles.content}>
     <h2>За последние 7 дней</h2>
     <div className={styles.chartParent}>
