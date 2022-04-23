@@ -8,8 +8,6 @@ import getUserInfo from '../services/getUserInfo';
 import { UserInfo } from '../types/UserInfo';
 
 const Home: NextPage = (UserInfo: any) => {
- console.log(UserInfo.userInfo);
-
  return (
   <div>
    <MainPage />
