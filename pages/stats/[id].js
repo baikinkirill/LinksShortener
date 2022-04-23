@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import styles from './stats.module.scss';
 import { DefaultHeader } from '../index';
+import { Fragment } from 'react';
 
 const Line = dynamic(
  () => import('@ant-design/plots/lib/components/line/index'),
@@ -72,30 +73,37 @@ function PieParent(props) {
 
 export default function Stats(props) {
  console.log(props);
-
  return (
   <div className={styles.parent}>
    <DefaultHeader />
    <h1>{decodeURIComponent(props.result.link)}</h1>
    <div className={styles.content}>
-    <h2>За последние 7 дней</h2>
-    <div className={styles.chartParent}>
-     <div>
-      <LineParent result={props.result.lastWeek} toTime={false} />
-     </div>
-     <div>
-      <PieParent result={props.result.lastWeek} />
-     </div>
-    </div>
-    <h2>За последние 24 часа</h2>
-    <div className={styles.chartParent}>
-     <div>
-      <LineParent result={props.result.lastDay} toTime={true} />
-     </div>
-     <div>
-      <PieParent result={props.result.lastDay} />
-     </div>
-    </div>
+    {Object.keys(props.result.lastWeek.browsers).length === 0 ? (
+     <h2 style={{ textAlign: 'center', marginTop: '20vh' }}>
+      Статистика появится чуть позже
+     </h2>
+    ) : (
+     <Fragment>
+      <h2>За последние 7 дней</h2>
+      <div className={styles.chartParent}>
+       <div>
+        <LineParent result={props.result.lastWeek} toTime={false} />
+       </div>
+       <div>
+        <PieParent result={props.result.lastWeek} />
+       </div>
+      </div>
+      <h2>За последние 24 часа</h2>
+      <div className={styles.chartParent}>
+       <div>
+        <LineParent result={props.result.lastDay} toTime={true} />
+       </div>
+       <div>
+        <PieParent result={props.result.lastDay} />
+       </div>
+      </div>
+     </Fragment>
+    )}
    </div>
   </div>
  );
