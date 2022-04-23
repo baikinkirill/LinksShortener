@@ -26,7 +26,6 @@ export function findHash(params: any, res: NextApiResponse) {
     os: params.os,
    };
 
-   console.log(requestObj);
    worker.getRequestsMap().Insert(requestObj);
    res.status(200).json({ result: e[0].link });
   } else {

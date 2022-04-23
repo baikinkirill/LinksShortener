@@ -22,7 +22,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
  let params = req.query;
  if (req.headers['content-type'] === 'application/json') {
   params = { ...req.query, ...req.body };
+ } else {
+  params = { ...req.query, body: req.body };
  }
+
  params['ip'] = requestIp.getClientIp(req);
  func(params, res);
 }
