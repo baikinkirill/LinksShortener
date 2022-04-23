@@ -13,7 +13,7 @@ export function addHash(params: any, res: NextApiResponse) {
  var query = worker
   .getSession()
   .query(tableMap)
-  .where(tableMap.hash.Equal(params.slug[1]));
+  .where(tableMap.hash.Equal(md5(params.slug[1]).slice(0, 7)));
 
  var md5 = require('md5');
  let linkObj: linkObject = {
