@@ -102,8 +102,9 @@ export default function Stats(props) {
 }
 
 export async function getServerSideProps(req) {
+ const HOST_URL = process.env.host_url || req.req.headers.host;
  let response = await fetch(
-  'http://' + req.req.headers.host + '/api/stats/' + req.query.id
+  'http://' + HOST_URL + '/api/stats/' + req.query.id
  );
  if (response.ok) {
   let json = await response.json();
