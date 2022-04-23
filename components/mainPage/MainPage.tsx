@@ -67,6 +67,7 @@ export default function MainPage() {
         onClick={buttonClick}
         shape="round"
         size={'large'}
+        disabled={!state.link}
         type={'primary'}>
         Short it!
        </Button>
