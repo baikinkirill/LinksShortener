@@ -4,9 +4,11 @@ import MainPage from '../components/mainPage/MainPage';
 import getUserInfo from '../services/getUserInfo';
 
 export function DefaultHeader() {
+ const HOST_URL = process.env.host_url || window.location.host;
+
  return (
   <Head>
-   <title>TRPP.RU</title>
+   <title>{HOST_URL.toUpperCase()}</title>
    <meta name="Лучший сокращатель ссылок для веб-сайта" />
    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
    <meta property="og:image" content="./cover.png" />
