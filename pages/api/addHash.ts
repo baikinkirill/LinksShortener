@@ -7,14 +7,26 @@ export function addHash(params: any, res: NextApiResponse) {
   res.status(404).json({ error: 'Hash not found' });
   return;
  }
- var md5 = require('md5');
  let worker = new dbWorker();
  let tableMap = worker.getTableMap();
+
+ var query = worker
+  .getSession()
+  .query(tableMap)
+  .where(tableMap.hash.Equal(params.slug[1]));
+
+ var md5 = require('md5');
  let linkObj: linkObject = {
   link: params.slug[1],
   hash: md5(params.slug[1]).slice(0, 7),
  };
 
- tableMap.Insert(linkObj);
- res.status(201).json({ result: md5(params.slug[1]).slice(0, 7) });
+ query.then((e: any) => {
+  if (e.length > 0) {
+   res.status(201).json({ result: md5(params.slug[1]).slice(0, 7) });
+  } else {
+   tableMap.Insert(linkObj);
+   res.status(201).json({ result: md5(params.slug[1]).slice(0, 7) });
+  }
+ });
 }

@@ -13,10 +13,11 @@ export default function Id(props: any) {
 
 export async function getServerSideProps(req: any) {
  const userInfo: UserInfo = getUserInfo(req.req);
+ const HOST_URL = process.env.host_url || req.req.headers.host;
 
  let response = await fetch(
   'http://' +
-   req.req.headers.host +
+   HOST_URL +
    '/api/hash/' +
    req.params.id +
    '/?os=' +
@@ -29,7 +30,7 @@ export async function getServerSideProps(req: any) {
 
   return {
    redirect: {
-    destination: 'https://' + json.result,
+    destination: 'https://' + decodeURIComponent(json.result),
     permanent: true,
    },
   };

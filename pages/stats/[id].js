@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import styles from './stats.module.scss';
+import { DefaultHeader } from '../index';
 
 const Line = dynamic(
  () => import('@ant-design/plots/lib/components/line/index'),
@@ -74,7 +75,8 @@ export default function Stats(props) {
 
  return (
   <div className={styles.parent}>
-   <h1>{props.result.link}</h1>
+   <DefaultHeader />
+   <h1>{decodeURIComponent(props.result.link)}</h1>
    <div className={styles.content}>
     <h2>За последние 7 дней</h2>
     <div className={styles.chartParent}>
@@ -100,8 +102,9 @@ export default function Stats(props) {
 }
 
 export async function getServerSideProps(req) {
+ const HOST_URL = process.env.host_url || req.req.headers.host;
  let response = await fetch(
-  'http://' + req.req.headers.host + '/api/stats/' + req.query.id
+  'http://' + HOST_URL + '/api/stats/' + req.query.id
  );
  if (response.ok) {
   let json = await response.json();

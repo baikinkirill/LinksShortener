@@ -18,16 +18,21 @@ export default function MainPage() {
 
  const buttonClick = async () => {
   setState({ loading: true });
-  shortLink(state.link).then((result) => {
-   setLoaded(true);
-   setState({
-    loading: false,
-    linkResult: result,
-    qr: (
-     <QRCodeCanvas size={200} value={'https://' + HOST_URL + '/' + result} />
-    ),
+  shortLink(encodeURIComponent(state.link))
+   .then((result) => {
+    setLoaded(true);
+    setState({
+     loading: false,
+     linkResult: result,
+     qr: (
+      <QRCodeCanvas size={200} value={'https://' + HOST_URL + '/' + result} />
+     ),
+    });
+   })
+   .catch((e) => {
+    setState({ loading: false });
+    setLoaded(false);
    });
-  });
  };
 
  return (
@@ -62,6 +67,7 @@ export default function MainPage() {
         onClick={buttonClick}
         shape="round"
         size={'large'}
+        disabled={!state.link}
         type={'primary'}>
         Short it!
        </Button>
