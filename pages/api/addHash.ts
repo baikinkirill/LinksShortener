@@ -9,7 +9,7 @@ export function addHash(params: any, res: NextApiResponse) {
  }
  var md5 = require('md5');
 
- const LINK = params.body.toLowerCase();
+ const LINK = params.body || '';
  const LINK_HASH = md5(LINK).slice(0, 7);
 
  let worker = new dbWorker();
