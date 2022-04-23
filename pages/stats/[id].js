@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import styles from './stats.module.scss';
+import { DefaultHeader } from '../index';
 
 const Line = dynamic(
  () => import('@ant-design/plots/lib/components/line/index'),
@@ -74,6 +75,7 @@ export default function Stats(props) {
 
  return (
   <div className={styles.parent}>
+   <DefaultHeader />
    <h1>{props.result.link}</h1>
    <div className={styles.content}>
     <h2>За последние 7 дней</h2>
