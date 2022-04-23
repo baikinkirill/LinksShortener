@@ -9,13 +9,13 @@ export function addHash(params: any, res: NextApiResponse) {
  }
  let worker = new dbWorker();
  let tableMap = worker.getTableMap();
+ var md5 = require('md5');
 
  var query = worker
   .getSession()
   .query(tableMap)
   .where(tableMap.hash.Equal(md5(params.slug[1]).slice(0, 7)));
 
- var md5 = require('md5');
  let linkObj: linkObject = {
   link: params.slug[1],
   hash: md5(params.slug[1]).slice(0, 7),

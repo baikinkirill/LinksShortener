@@ -10,8 +10,8 @@ export function DefaultHeader() {
   <Head>
    <title>{HOST_URL.toUpperCase()}</title>
    <meta name="Лучший сокращатель ссылок для веб-сайта" />
-   <link rel="icon" href="./favicon.ico" type="image/x-icon" />
-   <meta property="og:image" content="./cover.png" />
+   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+   <meta property="og:image" content="/cover.png" />
   </Head>
  );
 }

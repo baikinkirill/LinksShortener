@@ -58,7 +58,10 @@ export async function getStats(params: any, res: NextApiResponse) {
   .query(linksTable)
   .where(linksTable.hash.Equal(params.slug[1]));
 
- console.log(Array.from(query));
+ if (Array.from(query).length === 0) {
+  res.status(404).json({ error: 'Hash not found' });
+  return;
+ }
  res.status(200).json({
   result: {
    link: Array.from(query)[0].link,
