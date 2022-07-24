@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 import styles from './stats.module.scss'
 import { DefaultHeader } from '../index'
-import { Fragment } from 'react'
+import React, { Fragment } from 'react'
 
 const Line = dynamic(
   () => import('@ant-design/plots/lib/components/line/index'),
@@ -18,11 +18,11 @@ const Pie = dynamic(
   }
 )
 
-function LineParent (props) {
+function LineParent (props: any) {
   const data = Object.keys(props.result.stat).map((e) => ({
     Date: props.toTime
-      ? new Date(e * 1000).toLocaleTimeString('ru')
-      : new Date(e * 1000).toLocaleDateString('ru'),
+      ? new Date(Number(e) * 1000).toLocaleTimeString('ru')
+      : new Date(Number(e) * 1000).toLocaleDateString('ru'),
     Views: props.result.stat[e]
   }))
 
@@ -37,14 +37,11 @@ function LineParent (props) {
     smooth: true
   }
 
-  return (
-  <div>
-   <Line {...config} />
-  </div>
-  )
+  // @ts-ignore
+  return (<div><Line {...config} /></div>)
 }
 
-function PieParent (props) {
+function PieParent (props: any) {
   const data = Object.keys(props.result.browsers).map((e) => ({
     type: e,
     value: props.result.browsers[e]
@@ -71,7 +68,7 @@ function PieParent (props) {
   return <Pie {...config} />
 }
 
-export default function Stats (props) {
+export default function Stats (props: any) {
   console.log(props)
   return (
   <div className={styles.parent}>
@@ -80,38 +77,38 @@ export default function Stats (props) {
    <div className={styles.content}>
     {Object.keys(props.result.lastWeek.browsers).length === 0
       ? (
-     <h2 style={{ textAlign: 'center', marginTop: '20vh' }}>
-      Статистика появится чуть позже
-     </h2>
+      <h2 style={{ textAlign: 'center', marginTop: '20vh' }}>
+       Статистика появится чуть позже
+      </h2>
         )
       : (
-     <Fragment>
-      <h2>За последние 7 дней</h2>
-      <div className={styles.chartParent}>
-       <div>
-        <LineParent result={props.result.lastWeek} toTime={false} />
+      <Fragment>
+       <h2>За последние 7 дней</h2>
+       <div className={styles.chartParent}>
+        <div>
+         <LineParent result={props.result.lastWeek} toTime={false} />
+        </div>
+        <div>
+         <PieParent result={props.result.lastWeek} />
+        </div>
        </div>
-       <div>
-        <PieParent result={props.result.lastWeek} />
+       <h2>За последние 24 часа</h2>
+       <div className={styles.chartParent}>
+        <div>
+         <LineParent result={props.result.lastDay} toTime={true} />
+        </div>
+        <div>
+         <PieParent result={props.result.lastDay} />
+        </div>
        </div>
-      </div>
-      <h2>За последние 24 часа</h2>
-      <div className={styles.chartParent}>
-       <div>
-        <LineParent result={props.result.lastDay} toTime={true} />
-       </div>
-       <div>
-        <PieParent result={props.result.lastDay} />
-       </div>
-      </div>
-     </Fragment>
+      </Fragment>
         )}
    </div>
   </div>
   )
 }
 
-export async function getServerSideProps (req) {
+export async function getServerSideProps (req: any) {
   const HOST_URL = process.env.host_url || req.req.headers.host
   const response = await fetch(
     'http://' + HOST_URL + '/api/stats/' + req.query.id
