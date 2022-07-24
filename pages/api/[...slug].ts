@@ -1,53 +1,49 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { findHash } from './getHash';
-import { addHash } from './addHash';
-import { getStats } from './getStats';
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { findHash } from './getHash'
+import { addHash } from './addHash'
+import { getStats } from './getStats'
 
-const requestIp = require('request-ip');
+const requestIp = require('request-ip')
 
 export const config = {
- api: {
-  bodyParser: {
-   sizeLimit: '500kb',
-  },
- },
-};
-
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
- let func = Switch(
-  req.query.slug.length > 0 ? req.query.slug[0] : '',
-  req.method
- );
-
- let params = req.query;
- if (req.headers['content-type'] === 'application/json') {
-  params = { ...req.query, ...req.body };
- } else {
-  params = { ...req.query, body: req.body };
- }
-
- params['ip'] = requestIp.getClientIp(req);
- func(params, res);
+  api: {
+    bodyParser: {
+      sizeLimit: '500kb'
+    }
+  }
 }
 
-function Switch(methodName: string, methodType: any): any {
- console.log(methodName);
- switch (methodName.toLowerCase() + '__' + methodType.toLowerCase()) {
-  case 'hash__get':
-   return findHash;
-   break;
-  case 'hash__post':
-   return addHash;
-   break;
-  case 'stats__get':
-   return getStats;
-   break;
-  default:
-   return notFound;
-   break;
- }
+export default function handler (req: NextApiRequest, res: NextApiResponse) {
+  const func = Switch(
+    req.query.slug.length > 0 ? req.query.slug[0] : '',
+    req.method
+  )
+
+  let params = req.query
+  if (req.headers['content-type'] === 'application/json') {
+    params = { ...req.query, ...req.body }
+  } else {
+    params = { ...req.query, body: req.body }
+  }
+
+  params.ip = requestIp.getClientIp(req)
+  func(params, res)
 }
 
-function notFound(params: any, res: NextApiResponse) {
- res.status(404).json({ error: 'Method not found' });
+function Switch (methodName: string, methodType: any): any {
+  console.log(methodName)
+  switch (methodName.toLowerCase() + '__' + methodType.toLowerCase()) {
+    case 'hash__get':
+      return findHash
+    case 'hash__post':
+      return addHash
+    case 'stats__get':
+      return getStats
+    default:
+      return notFound
+  }
+}
+
+function notFound (params: any, res: NextApiResponse) {
+  res.status(404).json({ error: 'Method not found' })
 }
