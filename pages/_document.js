@@ -1,5 +1,5 @@
-import { Head, Html, Main, NextScript } from 'next/document'
-import React from 'react'
+import { Head, Html, Main, NextScript } from 'next/document';
+import React from 'react';
 
 export default function Document () {
   return (
@@ -13,7 +13,7 @@ export default function Document () {
 
      ym(89671309, "init", {
      clickmap:true,
-     trackLinks:true,
+     trackLinks:true, 
      accurateTrackBounce:true
     });
     `
@@ -38,5 +38,5 @@ export default function Document () {
    <NextScript />
    </body>
   </Html>
-  )
+  );
 }

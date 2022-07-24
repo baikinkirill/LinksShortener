@@ -1,7 +1,7 @@
-import dynamic from 'next/dynamic'
-import styles from './stats.module.scss'
-import { DefaultHeader } from '../index'
-import React, { Fragment } from 'react'
+import dynamic from 'next/dynamic';
+import styles from './stats.module.scss';
+import { DefaultHeader } from '../index';
+import React, { Fragment } from 'react';
 
 const Line = dynamic(
   () => import('@ant-design/plots/lib/components/line/index'),
@@ -9,14 +9,14 @@ const Line = dynamic(
     ssr: false,
     loading: () => <p>Loading...</p>
   }
-)
+);
 const Pie = dynamic(
   () => import('@ant-design/plots/lib/components/pie/index'),
   {
     ssr: false,
     loading: () => <p>Loading...</p>
   }
-)
+);
 
 function LineParent (props: any) {
   const data = Object.keys(props.result.stat).map((e) => ({
@@ -24,7 +24,7 @@ function LineParent (props: any) {
       ? new Date(Number(e) * 1000).toLocaleTimeString('ru')
       : new Date(Number(e) * 1000).toLocaleDateString('ru'),
     Views: props.result.stat[e]
-  }))
+  }));
 
   const config = {
     data,
@@ -35,17 +35,17 @@ function LineParent (props: any) {
       // type: 'timeCat',
     },
     smooth: true
-  }
+  };
 
   // @ts-ignore
-  return (<div><Line {...config} /></div>)
+  return (<div><Line {...config} /></div>);
 }
 
 function PieParent (props: any) {
   const data = Object.keys(props.result.browsers).map((e) => ({
     type: e,
     value: props.result.browsers[e]
-  }))
+  }));
   const config = {
     appendPadding: 10,
     data,
@@ -64,12 +64,12 @@ function PieParent (props: any) {
         type: 'element-active'
       }
     ]
-  }
-  return <Pie {...config} />
+  };
+  return <Pie {...config} />;
 }
 
 export default function Stats (props: any) {
-  console.log(props)
+  console.log(props);
   return (
   <div className={styles.parent}>
    <DefaultHeader />
@@ -105,31 +105,31 @@ export default function Stats (props: any) {
         )}
    </div>
   </div>
-  )
+  );
 }
 
 export async function getServerSideProps (req: any) {
-  const HOST_URL = process.env.host_url || req.req.headers.host
+  const HOST_URL = process.env.host_url || req.req.headers.host;
   const response = await fetch(
     'http://' + HOST_URL + '/api/stats/' + req.query.id
-  )
+  );
   if (response.ok) {
-    const json = await response.json()
+    const json = await response.json();
     if (json.result) {
-      const res = json.result
+      const res = json.result;
       return {
         props: {
           result: res
         }
-      }
+      };
     } else {
       return {
         notFound: true
-      }
+      };
     }
   }
 
   return {
     notFound: true
-  }
+  };
 }
