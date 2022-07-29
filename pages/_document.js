@@ -5,6 +5,25 @@ export default function Document () {
   return (
   <Html>
    <Head>
+    <meta content='На этом сайте вы можете укоротить ссылку любой длины' name='description' />
+    <meta
+     content='сократить ссылку, links shortener, укоротить ссылку, ссылка, ссылки, короткая, короткая ссылка, короткие ссылки, сделать, сделать короткую ссылку'
+     name='keywords' />
+    <meta content='https://кириешка.рф' name='author' />
+
+    <meta content='TRPP.RU' property='og:title' />
+    <meta content='Лучший сокращатель ссылок' property='og:description' />
+    <meta content='/cover.png' property='og:image' />
+    <meta content='https://trpp.ru' property='og:url' />
+    <meta content='TRPP.RU' property='og:site_name' />
+
+    <meta content='TRPP.RU' name='twitter:title' />
+    <meta content='Лучший сокращатель ссылок' name='twitter:description' />
+
+    <meta content='TRPP.RU' itemProp='name' />
+    <meta content='Лучший сокращатель ссылок' itemProp='description' />
+    <meta content='/cover.png' itemProp='image' />
+
     <script type='text/javascript' dangerouslySetInnerHTML={{
       __html: `
     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
